@@ -29,9 +29,12 @@ function getWorkingHrs() {
 while [[ $totalEmpHrs -lt $MaxHrsInMonth && $totalWorkingDays -lt $numWorkingDays ]]
 do
    ((totalWorkingDays++))
-   empHrs="$( getWorkingHrs $((RANDOM%3)) )"
+   empCheck=$((RANDOM%3))
+   empHrs="$( getWorkingHrs $empCheck )"
    totalEmpHrs=$(($totalEmpHrs + $empHrs))
+   dailyWage[$totalWorkingDays]=$(($empHrs*$empRatePerHr))
 done
 
 totalSalary=$(($totalEmpHrs*$empRatePerHr))
 echo "Total salary is $totalSalary"
+echo ${dailyWage[@]}
